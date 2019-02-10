@@ -1,0 +1,40 @@
+//./gradlew clean build  -Dorg.gradle.java.home=/Users/stan/jdk-11.0.2.jdk/Contents/Home bootJar && /Users/stan/jdk-11.0.2.jdk/Contents/Home/bin/java -jar build/libs/weather-0.1.0.jar
+
+buildscript {
+	ext {
+		springBootVersion = '2.1.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.stanleygeorge'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+bootJar {
+	baseName = 'weather'
+	version =  '0.1.0'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile("junit:junit")
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
