@@ -1,5 +1,13 @@
-//./gradlew clean build  -Dorg.gradle.java.home=/Users/stan/jdk-11.0.2.jdk/Contents/Home bootJar && /Users/stan/jdk-11.0.2.jdk/Contents/Home/bin/java -jar build/libs/weather-0.1.0.jar
+// Run ./gradlew idea
+/*
+./gradlew \
+  clean \
+  build -Dorg.gradle.java.home=/Users/stan/jdk-11.0.2.jdk/Contents/Home \
+  bootJar \
+  && /Users/stan/jdk-11.0.2.jdk/Contents/Home/bin/java -jar build/libs/weather-0.1.0.jar
 
+./gradlew jib -Dorg.gradle.java.home=/Users/stan/jdk-11.0.2.jdk/Contents/Home
+*/
 buildscript {
 	ext {
 		springBootVersion = '2.1.2.RELEASE'
@@ -11,6 +19,10 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 
 	}
+}
+
+plugins {
+    id 'com.google.cloud.tools.jib' version '1.0.0'
 }
 
 apply plugin: 'java'
@@ -26,6 +38,24 @@ targetCompatibility = '11'
 bootJar {
 	baseName = 'weather'
 	version =  '0.1.0'
+}
+
+jib {
+    //from.image = 'openjdk:11-jdk-alpine'
+    from {
+        image = 'openjdk:11.0.2-jdk-stretch'
+        auth {
+            username = USERNAME
+            password = PASSWORD
+        }
+    }
+    to {
+        image = 'registry.hub.docker.com/stanleygeorge/weather'
+        auth {
+            username = USERNAME
+            password = PASSWORD
+        }
+    }
 }
 
 repositories {
