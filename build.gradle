@@ -1,12 +1,30 @@
 // Run ./gradlew idea
 /*
+*Clean and build a jar with embedded Tomcat
 ./gradlew \
   clean \
   build -Dorg.gradle.java.home=/Users/stan/jdk-11.0.2.jdk/Contents/Home \
   bootJar \
   && /Users/stan/jdk-11.0.2.jdk/Contents/Home/bin/java -jar build/libs/weather-0.1.0.jar
 
+*Dockerize and push to docker-hub
 ./gradlew jib -Dorg.gradle.java.home=/Users/stan/jdk-11.0.2.jdk/Contents/Home
+
+*Start EC2 Instance
+*Download pem file and do below on macos/linux
+chmod 600 ../Desktop/t2micro.pem.txt
+*SSH into the EC2 Instance
+sudo ssh -i ../Desktop/t2micro.pem.txt ec2-user@<IP-ADDRESS>
+sudo yum update -y
+sudo yum install -y docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+docker run -d -p 80:8080 stanleygeorge/weather:latest --name weather
+curl http://localhost
+curl "http://localhost?[1-10]"
+docker stats
+docker ps
+docker stop 8dabb790acca
 */
 buildscript {
 	ext {
