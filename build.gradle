@@ -25,6 +25,9 @@ curl "http://localhost?[1-10]"
 docker stats
 docker ps
 docker stop 8dabb790acca
+
+Download Docker Tools, Kitematic, Start jenkins container,
+Install Jenkins plugin, create admin user, configure build
 */
 buildscript {
 	ext {
