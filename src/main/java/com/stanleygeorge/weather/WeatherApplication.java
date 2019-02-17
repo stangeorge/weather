@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +17,13 @@ public class WeatherApplication {
 	@RequestMapping("/")
 	public String home() {
 		return getDetailedForecast("201+E+Randolph+St", "Chicago", "IL");
+	}
+
+	@RequestMapping("/office")
+	public String office(@RequestParam(value="street", defaultValue="201+E+Randolph+St") String street,
+						 @RequestParam(value="city", defaultValue="Chicago") String city,
+						 @RequestParam(value="state", defaultValue="IL") String state) {
+		return getDetailedForecast(street, city, state);
 	}
 
 	private String getDetailedForecast(String street, String city, String state) {

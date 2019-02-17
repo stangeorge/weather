@@ -40,6 +40,7 @@ docker stop 8dabb790acca
 Install Jenkins
 ------------------------------------------
 docker pull jenkins/jenkins:lts
+dockerun -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
 Install Jenkins plugins, create admin user, configure build
 
 */
