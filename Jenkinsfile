@@ -4,11 +4,14 @@ pipeline {
     stage('Checkout') {
       steps {
         git(url: 'https://github.com/stangeorge/weather', branch: 'master', poll: true)
+        echo 'Checkout complete'
       }
     }
-    stage('') {
+    stage('Gradle build') {
       steps {
-        echo 'Checkout complete'
+        if (isUnix()) {
+          sh './gradlew clean'
+        }
       }
     }
   }
