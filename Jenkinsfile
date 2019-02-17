@@ -8,7 +8,7 @@ pipeline {
     }
     stage('') {
       steps {
-        dir(path: 'weather')
+        echo 'Checkout complete'
       }
     }
   }
