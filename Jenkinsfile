@@ -9,9 +9,7 @@ pipeline {
     }
     stage('Gradle build') {
       steps {
-        if (isUnix()) {
           sh './gradlew clean'
-        }
       }
     }
   }
